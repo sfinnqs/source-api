@@ -20,7 +20,18 @@ import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
 
+/**
+ * An open source Bukkit plugin. Plugins that are open source can implement this
+ * interface to indicate that they are open source and provide a link to their
+ * source code.
+ */
 public interface OpenSource extends Plugin {
+    /**
+     * Gets a link to this plugin's source code. For example, this may be a git
+     * repository.
+     *
+     * @return A URL pointing to all of this plugin's source code.
+     */
     @NotNull
     URL getSource();
 }
