@@ -16,7 +16,11 @@
 package org.sfinnqs.source;
 
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
+
+import java.net.URL;
 
 public interface OpenSource extends Plugin {
-    String getSource();
+    @NotNull
+    URL getSource();
 }
