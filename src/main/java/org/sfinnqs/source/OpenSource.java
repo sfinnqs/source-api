@@ -16,9 +16,8 @@
 package org.sfinnqs.source;
 
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
-
-import java.net.URL;
 
 /**
  * An open source Bukkit plugin. Plugins that are open source can implement this
@@ -28,10 +27,29 @@ import java.net.URL;
 public interface OpenSource extends Plugin {
     /**
      * Gets a link to this plugin's source code. For example, this may be a git
-     * repository.
+     * repository, like "https://github.com/example/test". Note that this method
+     * is required to have the full URL, so "github.com/example/test" would not
+     * suffice. Also, note that this method may be called before this plugin is
+     * enabled.
      *
-     * @return A URL pointing to all of this plugin's source code.
+     * @return A String URL pointing to all of this plugin's source code.
      */
     @NotNull
-    URL getSource();
+    String getSource();
+
+    /**
+     * Ensures that Source is enabled. If Source is disabled, this method will
+     * disable this plugin as well and throw a {@link IllegalStateException}. It
+     * is recommended that plugins call this method early in their {@link
+     * #onEnable()} methods if they wish to enforce AGPL-compliance.
+     *
+     * @throws IllegalStateException if Source is disabled
+     */
+    default void checkSourceEnabled() {
+        PluginManager manager = getServer().getPluginManager();
+        if (!manager.isPluginEnabled("Source")) {
+            manager.disablePlugin(this);
+            throw new IllegalStateException("Disabling because Source is disabled");
+        }
+    }
 }
