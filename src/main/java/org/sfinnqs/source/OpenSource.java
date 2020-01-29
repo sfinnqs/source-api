@@ -38,12 +38,13 @@ public interface OpenSource extends Plugin {
     String getSource();
 
     /**
-     * Ensures that Source is enabled. If Source is disabled, this method will
-     * disable this plugin as well and throw a {@link IllegalStateException}. It
-     * is recommended that plugins call this method early in their {@link
-     * #onEnable()} methods if they wish to enforce AGPL-compliance.
+     * Ensures that the Source plugin is enabled. If Source is disabled, this
+     * method will disable this plugin as well and throw an {@link
+     * IllegalStateException}. It is recommended that plugins call this method
+     * early in their {@link #onEnable()} methods if they wish to enforce
+     * AGPL-compliance.
      *
-     * @throws IllegalStateException if Source is disabled
+     * @throws IllegalStateException if the Source plugin is not enabled
      */
     default void checkSourceEnabled() {
         PluginManager manager = getServer().getPluginManager();
